@@ -1,8 +1,10 @@
 const fs = require("fs");
 //llamado de las funciones del archivo functions.js
-const { convertToAbsolutePath, isPathExist, isMarkdown } = require("./functions.js");
+const { convertToAbsolutePath, isPathExist, isMarkdown, getUrl } = require("./validateFunctions.js");
 
-const mdLinks = (path) => {
+const mdLinks = (path, validate) => {
+
+  //agregar if con otra promesa
   return new Promise((resolve, reject) => {
     // 1. Convertir ruta a absoluta
     const absolutePath = convertToAbsolutePath(path);
@@ -14,12 +16,20 @@ const mdLinks = (path) => {
 
     if (exist === false) {
       reject("La ruta no existe");
-    }
-    if(md=== false) {
+    }else{
+      if(md=== false) {
       reject("No es un archivo .md")
+    }else{
+     getUrl(absolutePath).then(links=>{
+      console.log(links)
+      resolve(links);
+     })
+     
+    
     }
-    resolve(md);
-    // resolve('1000000 de dólares')
+    
+
+    }
   });
 };
 
