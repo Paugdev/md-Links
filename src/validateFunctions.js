@@ -1,6 +1,8 @@
 const path = require("path");
 const fs = require("fs");
+const { argv } = require('yargs');
 
+const validate = process.argv[3];
 
 const convertToAbsolutePath = (route) => {
   return path.isAbsolute(route) ? route : path.resolve(route);
@@ -21,19 +23,37 @@ const isMarkdown = (route) =>{
 
 //Promesa al leer archivo
 const getUrl = (route) => new Promise((res, rej) => {
+  console.log('VALIDATE', validate)
   //ejecuta función que lee el archivo
   const regexUrl = /(\[.+?]\(((https?:\/\/)|(http?:\/\/)|(www\.))[^\s\n]+)(?=\))/g;
-  const regExp = /\[[^\[\]]+\]/g
+  //const regExp = /\[[^\[\]]+\]/g
   //const regextext= /\[.+?]/g;
   console.log(route+'getUrl')
   const getUrlAndText = (data) => {
-    const getUrl = data.match(regexUrl);
-    console.log(getUrl)
-    //const getText = data.match(regextext;
+    const routes = data.match(regexUrl);
+    
     const resulLinks = []
 
+    if(validate !== undefined) {
+      routes.map((info)=>{
+
+        const cadenaText = info.match(/\[(.*?)\]/);
+  
+      resulLinks.push({
+        file: route,
+        href: info.split('(')[1], 
+        text: cadenaText[1], 
+        status: 'status',
+        ok: 'ok'
+      })
+  
+      })
+      return res(resulLinks)
+
+    } else {
+
     
-    getUrl.map((info)=>{
+    routes.map((info)=>{
 
       const cadenaText = info.match(/\[(.*?)\]/);
 
@@ -46,6 +66,7 @@ const getUrl = (route) => new Promise((res, rej) => {
 
     })
     res(resulLinks)
+  }
     
   }
 
