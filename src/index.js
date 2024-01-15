@@ -21,7 +21,7 @@ const mdLinks = (path, validate) => {
       reject("No es un archivo .md")
     }else{
      getUrl(absolutePath).then(links=>{
-      console.log(links)
+      //console.log(links)
       resolve(links);
      })
      

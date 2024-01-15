@@ -23,12 +23,13 @@ const isMarkdown = (route) =>{
 
 //Promesa al leer archivo
 const getUrl = (route) => new Promise((res, rej) => {
-  console.log('VALIDATE', validate)
+
+  //console.log('VALIDATE', validate)
   //ejecuta función que lee el archivo
   const regexUrl = /(\[.+?]\(((https?:\/\/)|(http?:\/\/)|(www\.))[^\s\n]+)(?=\))/g;
   //const regExp = /\[[^\[\]]+\]/g
   //const regextext= /\[.+?]/g;
-  console.log(route+'getUrl')
+  //console.log(route+'getUrl')
   const getUrlAndText = (data) => {
     const routes = data.match(regexUrl);
     
@@ -71,7 +72,7 @@ const getUrl = (route) => new Promise((res, rej) => {
   }
 
   const searchLinks = (data) => {
-    console.log(data+'search')
+    //console.log(data+'search')
      return getUrlAndText(data) 
          
   }
